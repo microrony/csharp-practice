@@ -1,4 +1,5 @@
-﻿Random dice = new Random();
-int roll = dice.Next(1, 7);
+﻿int firstValue = 500;
+int secondValue = 600;
+int largerValue = Math.Max(firstValue, secondValue);
 
-Console.WriteLine(roll);
+Console.WriteLine(largerValue);
