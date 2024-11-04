@@ -1,0 +1,32 @@
+﻿Random dice = new Random();
+
+int roll1 = dice.Next(1, 7);
+int roll2 = dice.Next(1, 7);
+int roll3 = dice.Next(1, 7);
+
+
+int total = roll1 + roll2 + roll3;
+
+Console.WriteLine($"Dice roll: {roll1} + {roll2} + {roll3} = {total}");
+
+if ((roll1 == roll2) || (roll2 == roll3) || (roll3 == roll1))
+{
+  Console.WriteLine("You got 2 point bonus!");
+  total += 2;
+}
+
+if ((roll1 == roll2) && (roll2 == roll3))
+{
+  Console.WriteLine("You got 6 point bonus!");
+  total += 6;
+}
+
+if (total >= 15)
+{
+  Console.WriteLine("You Won!");
+}
+
+if (total < 15)
+{
+  Console.WriteLine("Sorry, you lose!");
+}
