@@ -1,28 +1,27 @@
-﻿Random random = new Random();
-int heroHealthPoints = 10;
-int monsterHealthPoints = 10;
-string attacker = "hero";
+﻿int numValue = 0;
+bool validNumber = false;
+string? userInput;
+
+Console.WriteLine("Enter an integer value between 5 and 10");
 
 do
 {
-  int hitPoint = random.Next(1, 11);
+  userInput = Console.ReadLine();
+  validNumber = int.TryParse(userInput, out numValue);
 
-  switch (attacker)
+  if (validNumber)
   {
-    case "hero":
-      monsterHealthPoints -= hitPoint;
-      Console.WriteLine($"Monster was damaged and lost {hitPoint} health and now has {monsterHealthPoints} health.");
-      attacker = "monster";
-      break;
-    case "monster":
-      heroHealthPoints -= hitPoint;
-      Console.WriteLine($"Hero was damaged and lost {hitPoint} health and now has {heroHealthPoints} health.");
-      attacker = "hero";
-      break;
+    if (numValue <= 5 || numValue >= 10)
+    {
+      validNumber = false;
+      Console.WriteLine($"You entered {numValue}. Please enter a number between 5 and 10.");
+    }
+  }
+  else
+  {
+    Console.WriteLine("Sorry, you entered an invalid number, please try again");
   }
 
-  if (heroHealthPoints > 0 && monsterHealthPoints > 0) continue;
+} while (validNumber == false);
 
-  Console.WriteLine(heroHealthPoints > 0 ? "Hero wins!" : "Monster wins!");
-
-} while (heroHealthPoints > 0 && monsterHealthPoints > 0);
+Console.WriteLine($"Your input value ({numValue}) has been accepted.");
