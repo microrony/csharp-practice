@@ -1,23 +1,29 @@
-﻿bool validRole = false;
-string[] roles = new string[] { "administrator", "manager", "user" };
+﻿using System.Runtime.InteropServices;
 
-Console.WriteLine("Enter your role name (Administrator, Manager, or User)");
+string[] myStrings = new string[2] { "I like pizza. I like roast chicken. I like salad", "I like all three of the menu choices" };
+int periodCharacter = 0;
 
-do
+foreach (string str in myStrings)
 {
-  string? userInput = Console.ReadLine();
+  string myString = str;
+  periodCharacter = myString.IndexOf('.');
 
-  if (userInput != null)
+
+  while (periodCharacter > 0)
   {
-    validRole = roles.Contains(userInput.Trim().ToLower());
+    if (myString.Length > 1)
+    {
+      string sentence = myString[..periodCharacter];
 
-    if (validRole)
-    {
-      Console.WriteLine($"Your input value ({userInput.Trim()}) has been accepted.");
-    }
-    else
-    {
-      Console.WriteLine($"The role name that you entered, \"{userInput.Trim()}\" is not valid. Enter your role name (Administrator, Manager, or User)");
+      Console.WriteLine(sentence);
+
+      myString = myString.Remove(0, periodCharacter).TrimStart('.').Trim();
+      periodCharacter = myString.IndexOf('.');
     }
   }
-} while (validRole == false);
+
+  if (periodCharacter < 0)
+  {
+    Console.WriteLine(myString);
+  }
+}
