@@ -1,33 +1,25 @@
-﻿string message = "(What if) I have [different symbols] but every {open symbol} needs a [matching closing symbol]?";
+﻿const string input = "<div><h2>Widgets &trade;</h2><span>5000</span></div>";
 
-char[] openSymbols = { '(', '{', '[' };
+string quantity = "";
+string output = "";
 
-int closingPosition = 0;
-while (true)
-{
-  int openingPosition = message.IndexOfAny(openSymbols, closingPosition);
-  if (openingPosition == -1) break;
+const string openSpan = "<span>";
+const string closeSpan = "</span>";
 
-  string currentSymbol = message.Substring(openingPosition, 1);
-  string matchingSymbol = "";
+int openSpanPosition = input.IndexOf(openSpan);
+int closeSpanPosition = input.IndexOf(closeSpan);
 
-  switch (currentSymbol)
-  {
-    case "[":
-      matchingSymbol = "]";
-      break;
-    case "{":
-      matchingSymbol = "}";
-      break;
-    case "(":
-      matchingSymbol = ")";
-      break;
-  }
+openSpanPosition += openSpan.Length;
+int quantityValueLength = closeSpanPosition - openSpanPosition;
 
-  openingPosition += 1;
+quantity = input.Substring(openSpanPosition, quantityValueLength);
 
-  closingPosition = message.IndexOf(matchingSymbol, openingPosition);
+string openH2 = "<h2>";
+int openH2Position = input.IndexOf(openH2);
+int outputLength = closeSpanPosition - openH2Position;
+outputLength += closeSpan.Length;
 
-  int length = closingPosition - openingPosition;
-  Console.WriteLine(message.Substring(openingPosition, length));
-}
+output = input.Substring(openH2Position, outputLength).Replace("trade", "reg");
+
+Console.WriteLine($"Quantity: {quantity}");
+Console.WriteLine($"Output: {output}");
