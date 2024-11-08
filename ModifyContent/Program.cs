@@ -1,12 +1,14 @@
-﻿string message = "What is the value <span>between the tags</span>?";
+﻿string message = "(What if) there are (more than) one (set of parentheses)?";
 
-string openSpan = "<span>";
-string closeSpan = "</span>";
+while (true)
+{
+  int openingPosition = message.IndexOf('(');
+  if (openingPosition == -1) break;
 
-int openSpanPosition = message.IndexOf(openSpan);
-int closeSpanPosition = message.IndexOf(closeSpan);
-openSpanPosition += openSpan.Length;
+  openingPosition += 1;
+  int closingPosition = message.IndexOf(')');
+  int length = closingPosition - openingPosition;
+  Console.WriteLine(message.Substring(openingPosition, length));
 
-int length = closeSpanPosition - openSpanPosition;
-
-Console.WriteLine(message.Substring(openSpanPosition, length));
+  message = message.Substring(closingPosition + 1);
+}
