@@ -1,21 +1,15 @@
-﻿// The following code will reverse every word in this text.
+﻿string orderStream = "B123,C234,A345,C15,B177,G3003,C235,B179";
 
-string pangram = "The quick brown fox jumps over the lazy dog";
+string[] orderIDs = orderStream.Split(",");
 
-// Step 1
-string[] message = pangram.Split(' ');
-
-//Step 2
-string[] newMessage = new string[message.Length];
-
-// Step 3
-for (int i = 0; i < message.Length; i++)
+for (int i = 0; i < orderIDs.Length; i++)
 {
-  char[] letters = message[i].ToCharArray();
-  Array.Reverse(letters);
-  newMessage[i] = new string(letters);
+  if (orderIDs[i].Length != 4)
+  {
+    Console.WriteLine($"{orderIDs[i]}\t- Error");
+  }
+  else
+  {
+    Console.WriteLine(orderIDs[i]);
+  }
 }
-
-//Step 4
-string result = String.Join(" ", newMessage);
-Console.WriteLine(result);
