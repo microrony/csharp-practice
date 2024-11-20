@@ -1,92 +1,28 @@
-﻿int[] times = { 800, 1200, 1600, 2000 };
-int diff = 0;
-
-Console.WriteLine("Enter current GMT");
-int currentGMT = Convert.ToInt32(Console.ReadLine());
-
-Console.WriteLine("Current Medicine Schedule:");
-
-/* Format and display medicine times */
-foreach (int val in times)
+﻿string[,] corporate =
 {
-  string time = val.ToString();
-  int len = time.Length;
+    {"Robert", "Bavin"}, {"Simon", "Bright"},
+    {"Kim", "Sinclair"}, {"Aashrita", "Kamath"},
+    {"Sarah", "Delucchi"}, {"Sinan", "Ali"}
+};
 
-  if (len >= 3)
-  {
-    time = time.Insert(len - 2, ":");
-  }
-  else if (len == 2)
-  {
-    time = time.Insert(0, "0:");
-  }
-  else
-  {
-    time = time.Insert(0, "0:0");
-  }
-
-  Console.Write($"{time} ");
-}
-
-Console.WriteLine();
-
-Console.WriteLine("Enter new GMT");
-int newGMT = Convert.ToInt32(Console.ReadLine());
-
-if (Math.Abs(newGMT) > 12 || Math.Abs(currentGMT) > 12)
+string[,] external =
 {
-  Console.WriteLine("Invalid GMT");
-}
-else if (newGMT <= 0 && currentGMT <= 0 || newGMT >= 0 && currentGMT >= 0)
+    {"Vinnie", "Ashton"}, {"Cody", "Dysart"},
+    {"Shay", "Lawrence"}, {"Daren", "Valdes"}
+};
+
+string externalDomain = "hayworth.com";
+
+DisplayEmailAddress(corporate);
+DisplayEmailAddress(external, isCorporate: false, externalDomain);
+
+void DisplayEmailAddress(string[,] employees, bool isCorporate = true, string domainName = "contoso.com")
 {
-  diff = 100 * (Math.Abs(newGMT) - Math.Abs(currentGMT));
-
-  /* Adjust the times by adding the difference, keeping the value within 24 hours */
-  for (int i = 0; i < times.Length; i++)
+  for (int i = 0; i < employees.GetLength(0); i++)
   {
-    times[i] = ((times[i] + diff)) % 2400;
+    string email;
+    string username = (employees[i, 0][..2] + employees[i, 1]).ToLower();
+    email = $@"{username}@{domainName}";
+    Console.WriteLine(email);
   }
-}
-else
-{
-  diff = 100 * (Math.Abs(newGMT) + Math.Abs(currentGMT));
-
-  /* Adjust the times by adding the difference, keeping the value within 24 hours */
-  for (int i = 0; i < times.Length; i++)
-  {
-    times[i] = ((times[i] + diff)) % 2400;
-  }
-}
-
-DisplayMedicineTime();
-
-Console.WriteLine("New Medicine Schedule:");
-
-
-
-void DisplayMedicineTime()
-{
-  /* Format and display medicine times */
-  foreach (int val in times)
-  {
-    string time = val.ToString();
-    int len = time.Length;
-
-    if (len >= 3)
-    {
-      time = time.Insert(len - 2, ":");
-    }
-    else if (len == 2)
-    {
-      time = time.Insert(0, "0:");
-    }
-    else
-    {
-      time = time.Insert(0, "0:0");
-    }
-
-    Console.Write($"{time} ");
-  }
-
-  Console.WriteLine();
 }
