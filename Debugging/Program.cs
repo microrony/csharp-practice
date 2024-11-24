@@ -2,13 +2,14 @@
 This code instantiates a value and then calls the ChangeValue method
 to update the value. The code then prints the updated value to the console.
 */
-int value = 5;
+int x = 5;
 
-ChangeValue(value);
+x = ChangeValue(x);
 
-Console.WriteLine(value);
+Console.WriteLine(x);
 
-void ChangeValue(int value)
+int ChangeValue(int value)
 {
   value = 10;
+  return value;
 }
